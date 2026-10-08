@@ -17,7 +17,7 @@ export function CharacterPicker({onPick}:{onPick:(id:string)=>void}){
    <div className="picker-body">
     <div className="picker-stage"><BigPreview id={choice}/><div className="picker-name"><h3>{selected.name}</h3><p>{selected.tagline}</p></div></div>
     <div className="picker-grid">
-     {characters.map(c=><button key={c.id} className={choice===c.id?'picker-option active':'picker-option'} onClick={()=>setChoice(c.id)}><i style={{background:c.swatch}}/><div><strong>{c.short}</strong><small>{c.name}</small></div>{choice===c.id&&<span className="picker-check">✓</span>}</button>)}
+     {characters.map(c=><button key={c.id} className={c.group==='locked'?'picker-option locked':choice===c.id?'picker-option active':'picker-option'} disabled={c.group==='locked'} onClick={()=>setChoice(c.id)}><i style={{background:c.swatch}}/><div><strong>{c.short}</strong><small>{c.name}</small></div>{c.group==='locked'?<span className="pill">LOCKED</span>:choice===c.id&&<span className="picker-check">✓</span>}</button>)}
      <div className="picker-option soon"><i className="soon-dot"/><div><strong>Customize Trenchero</strong><small>Coming soon</small></div><span className="pill">SOON</span></div>
     </div>
    </div>

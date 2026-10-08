@@ -6,7 +6,7 @@ Draft creation is idempotent while a blocked draft exists. Request IDs do not gr
 access: all reads, skins and generated world selections check the session owner.
 No fixture appears in the application or production seed.
 
-Optional PLAYCRAFT_INTEGRATION_CONFIG JSON is read server-side to inventory unresolved
+Optional LETSCRAFT_INTEGRATION_CONFIG JSON is read server-side to inventory unresolved
 fields (network, contract, tokens, amountPolicy, finality, ownership, metadata,
 analysis, generation, recovery). Its values are never returned publicly. Field
 presence is not validation or approval. Even a fully populated object cannot enable
@@ -44,7 +44,7 @@ lease prevents simultaneous runs. There is no automatic retry/refund policy or
 background restart scheduler until approved. Persisted failed/interrupted jobs keep
 their entitlement and job key; processing never requests another payment.
 
-Playcraft atlas v1: opaque PNG 192x16, 12 tiles of 16x16. Tiles: torso, head, hair,
+LetsCraft atlas v1: opaque PNG 192x16, 12 tiles of 16x16. Tiles: torso, head, hair,
 left leg, right leg, left arm, right arm, left boot, right boot, left eye, right eye,
 belt. Each part repeats its tile on all six faces. Geometry/proportions stay fixed.
 Validated assets go under /data/uploads, served only through ownership-checked API.
@@ -63,7 +63,7 @@ post-payment support/refund procedures. None is implied complete by fixture test
 implements resolveLogo (the bytes the session uploaded), analyzeLogo
 (`server/imaging.mjs` pixel analysis: palette, background, coverage, symmetry,
 brightness/saturation), reconcile (always absent before first submission) and
-generate (deterministic 192×16 Playcraft atlas from the analyzed palette and a pixelated
+generate (deterministic 192×16 LetsCraft atlas from the analyzed palette and a pixelated
 12×12 chest emblem of the logo). The idempotency key is the SHA-256 of the uploaded
 bytes, so retries reconcile the same job; no network access is performed.
 

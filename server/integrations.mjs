@@ -12,7 +12,7 @@ const requirements = {
 };
 export function capabilities(env=process.env) {
  let config={};let invalid=false;
- try { config=JSON.parse(env.PLAYCRAFT_INTEGRATION_CONFIG||'{}');if(!config||typeof config!=='object'||Array.isArray(config))throw Error(); } catch {invalid=true;config={};}
+ try { config=JSON.parse(env.LETSCRAFT_INTEGRATION_CONFIG||'{}');if(!config||typeof config!=='object'||Array.isArray(config))throw Error(); } catch {invalid=true;config={};}
  const missing=Object.entries(requirements).filter(([key])=>!config[key]).map(([,text])=>text);
  if(invalid)missing.unshift('Integration configuration is not valid JSON');
  missing.push('Approved concrete adapters and persistent paid-account ownership are not implemented');
