@@ -1,0 +1,15 @@
+node_modules
+dist
+.git
+.jatevo
+.wrangler
+.env*
+*.sqlite*
+/data
+/uploads
+/uploads/*
+uploads
+coverage
+artifacts
+*.log
+.DS_Store

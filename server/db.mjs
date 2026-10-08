@@ -1,0 +1,11 @@
+import {migrateCustomization} from './customization.mjs';
+import {DatabaseSync} from 'node:sqlite';
+import {mkdirSync} from 'node:fs';
+import path from 'node:path';
+export function database(file=process.env.SQLITE_PATH||'/data/app.sqlite'){mkdirSync(path.dirname(file),{recursive:true});const db=new DatabaseSync(file);db.exec('PRAGMA foreign_keys=ON; PRAGMA busy_timeout=5000;');return db;}
+export function migrate(db){db.exec(`CREATE TABLE IF NOT EXISTS migrations(version INTEGER PRIMARY KEY);`);if(!db.prepare('SELECT 1 FROM migrations WHERE version=1').get())db.exec(`BEGIN; CREATE TABLE players(id TEXT PRIMARY KEY, created TEXT DEFAULT CURRENT_TIMESTAMP); CREATE TABLE sessions(token TEXT PRIMARY KEY,player TEXT NOT NULL REFERENCES players(id)); CREATE TABLE worlds(player TEXT PRIMARY KEY REFERENCES players(id), revision INTEGER NOT NULL DEFAULT 0, data TEXT NOT NULL); CREATE TABLE requests(id TEXT PRIMARY KEY,player TEXT REFERENCES players(id),state TEXT NOT NULL,detail TEXT); CREATE TABLE redemptions(network TEXT,transaction_id TEXT,request TEXT REFERENCES requests(id),PRIMARY KEY(network,transaction_id)); INSERT INTO migrations VALUES(1); COMMIT;`);
+ migrateCustomization(db);
+ if(!db.prepare('SELECT 1 FROM migrations WHERE version=3').get())db.exec(`BEGIN; CREATE TABLE wallets(player TEXT PRIMARY KEY REFERENCES players(id), address TEXT NOT NULL, chain TEXT NOT NULL, connected TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP); INSERT INTO migrations VALUES(3); COMMIT;`);
+}
+export const builtInAppearances=['trencher','bitcoin','ethereum','solana','hyperliquid','robinhood','zcash','binance'];
+export function validWorld(d){return d&&Number.isInteger(d.revision)&&d.revision>=0&&Array.isArray(d.position)&&d.position.length===3&&d.position.every(Number.isFinite)&&d.position[0]>=.3&&d.position[0]<127.7&&d.position[2]>=.3&&d.position[2]<127.7&&d.position[1]>=0&&d.position[1]<48&&Number.isInteger(d.selected)&&d.selected>=0&&d.selected<8&&builtInAppearances.includes(d.appearance)&&(d.mumus===undefined||(Number.isInteger(d.mumus)&&d.mumus>=0&&d.mumus<=1000000000))&&d.edits&&typeof d.edits==='object'&&!Array.isArray(d.edits)&&Object.keys(d.edits).length<=60000&&Object.entries(d.edits).every(([k,v])=>{if(!/^\d+,\d+,\d+$/.test(k))return false;const [x,y,z]=k.split(',').map(Number);return x<128&&z<128&&y>0&&y<48&&Number.isInteger(v)&&v>=0&&v<=8;});}
