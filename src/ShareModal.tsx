@@ -9,20 +9,20 @@ function ShareAvatar({style,onCanvas}:{style:string;onCanvas:(c:HTMLCanvasElemen
 }
 
 export function ShareModal({appearance,name,referral,onClose}:{appearance:string;name:string;referral:string;onClose:()=>void}){
- const[text,setText]=useState(`the fed pays in $USDG! join my valley ${referral}`);
+ const[text,setText]=useState(`the moon camp pays in $SPACEX! join me on the moon ${referral}`);
  const[card,setCard]=useState('');
  const[copied,setCopied]=useState(false);
  const intent=`https://x.com/intent/tweet?text=${encodeURIComponent(text)}`;
  function copy(){const p=navigator.clipboard?.writeText(text);if(!p)return;void p.then(()=>{setCopied(true);setTimeout(()=>setCopied(false),1500);}).catch(()=>{});}
  async function grab(canvas:HTMLCanvasElement){try{setCard(await composeShareCard(canvas,name,referral));}catch{}}
- function download(){if(!card)return;const a=document.createElement('a');a.href=card;a.download='letscraft-card.png';document.body.appendChild(a);a.click();a.remove();}
+ function download(){if(!card)return;const a=document.createElement('a');a.href=card;a.download='mooncraft-card.png';document.body.appendChild(a);a.click();a.remove();}
  return <div className="share-overlay" onClick={onClose}>
   <div className="share-card" onClick={e=>e.stopPropagation()}>
    <button className="close" aria-label="Close" onClick={onClose}>×</button>
    <div className="share-head">
-    <span className="eyebrow">SHARE LETSCRAFT</span>
-    <h2>Invite friends, earn $USDG</h2>
-    <p>Share LetsCraft and invite your friend to earn $USDG — you get a <strong>10% bonus</strong> of the $USDG they earn.</p>
+    <span className="eyebrow">SHARE MOONCRAFT</span>
+    <h2>Invite friends, earn $SPACEX</h2>
+    <p>Share Mooncraft and invite your friend to earn $SPACEX — you get a <strong>10% bonus</strong> of the $SPACEX they earn.</p>
    </div>
    <div className="share-body">
     <div className="share-stage"><ShareAvatar style={appearance} onCanvas={grab}/><small>Your miner · {name}</small></div>

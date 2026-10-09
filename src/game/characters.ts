@@ -1,6 +1,6 @@
 export type Look={
  id:string;name:string;short:string;tagline:string;swatch:string;group:'default'|'legends'|'locked';
- extras:'trencher'|'og'|'diamond'|'speed'|'wave'|'hood'|'veil'|'armor'|'fed'|null;
+ extras:'trencher'|'og'|'diamond'|'speed'|'wave'|'hood'|'veil'|'armor'|'astro'|null;
  tags:string[];
  colors:{torso:number;head:number;hair:number;leg:number;arm:number;boot:number;eye:number;belt:number};
 };
@@ -21,8 +21,8 @@ export const characters:Look[]=[
   colors:{torso:0x111111,head:0xd5b592,hair:0x0a0a0a,leg:0x1a1a1a,arm:0x111111,boot:0x000000,eye:0xf4b728,belt:0xf4b728}},
  {id:'binance',name:'Bin the Keeper',short:'Binens',tagline:'Golden armor and a diamond at the core.',swatch:'#f0b90b',group:'legends',extras:'armor',tags:['Armor','Gold','Keeper'],
   colors:{torso:0x1e2026,head:0xd5b592,hair:0xf0b90b,leg:0x1e2026,arm:0xf0b90b,boot:0x111318,eye:0x2c3533,belt:0xf0b90b}},
- {id:'usdg',name:'The Fed Runner',short:'$USDG',tagline:'Locked for now. The Fed decides who walks out.',swatch:'#85bb65',group:'locked',extras:'fed',tags:['Locked','Fed','Banker'],
-  colors:{torso:0x1c3a2a,head:0xd5b592,hair:0x2c2c2c,leg:0x14171c,arm:0x1c3a2a,boot:0x0d0f12,eye:0x2c3533,belt:0xc9a227}}
+ {id:'spacex',name:'The SpaceX Runner',short:'$SPACEX',tagline:'Locked for now. The moon camp decides who walks out.',swatch:'#f2e5a6',group:'locked',extras:'astro',tags:['Locked','Camp','Hauler'],
+  colors:{torso:0xdcd6c6,head:0xe7e1d2,hair:0xbfb9a8,leg:0x9d988a,arm:0xdcd6c6,boot:0x6f6a5e,eye:0x2c3533,belt:0xe6c565}}
 ];
 export const looks:Record<string,Look>=Object.fromEntries(characters.map(c=>[c.id,c]));
 export const legends=characters.filter(c=>c.group==='legends');

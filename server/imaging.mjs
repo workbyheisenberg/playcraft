@@ -81,7 +81,7 @@ function drawEmblem(out,img,a,x0,y0,size){
   }
 }
 
-// LetsCraft atlas v1: opaque 192×16 PNG, twelve 16×16 tiles:
+// Mooncraft atlas v1: opaque 192×16 PNG, twelve 16×16 tiles:
 // torso, head, hair, left leg, right leg, left arm, right arm, left boot, right boot, left eye, right eye, belt.
 export function generateSkin(bytes,meta={}){
   const a=meta.analysis||analyzeLogo(bytes);

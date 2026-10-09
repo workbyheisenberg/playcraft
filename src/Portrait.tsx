@@ -15,10 +15,10 @@ export function drawPortrait(g:CanvasRenderingContext2D,style:string){
  R(4,8,8,7,c.torso);R(2,8,2,6,c.arm);R(12,8,2,6,c.arm);
  R(4,14,8,1,c.belt);
  R(5,4,6,5,c.head);R(4,2,8,1,c.hair);R(4,3,8,1,c.hair);
- if(!['hood','veil','fed'].includes(look.extras||'')){R(4,4,1,2,c.hair);R(11,4,1,2,c.hair);}
+ if(!['hood','veil','astro'].includes(look.extras||'')){R(4,4,1,2,c.hair);R(11,4,1,2,c.hair);}
  R(6,6,1,1,c.eye);R(9,6,1,1,c.eye);
  switch(look.extras){
-  case 'fed':R(4,3,8,1,0x171717);R(5,0,6,3,0x171717);R(7,9,2,3,0xc9a227);R(4,10,1,1,0x85bb65);break;
+  case 'astro':R(3,3,10,2,0xe9e4d6);R(4,1,8,3,0xe9e4d6);R(5,6,6,1,0x24384a);R(12,9,1,5,0xb8b2a2);R(13,10,1,2,0xe6c565);break;
   case 'trencher':R(4,1,8,2,0x4f5b52);R(4,3,8,1,0x4f5b52);R(6,7,1,1,0x9b7f63);R(9,7,1,1,0x9b7f63);R(6,8,4,1,0x6e6257);R(13,13,1,1,0x9aa0a6);break;
   case 'og':R(4,7,8,1,0xe6e6e6);R(4,8,8,3,0xe6e6e6);R(13,5,1,10,0x4a3527);R(13,4,1,1,0xf7931a);break;
   case 'diamond':R(4,0,8,1,0x8a9cf0);R(5,1,6,1,0x8a9cf0);R(7,10,2,2,0x8a9cf0);break;

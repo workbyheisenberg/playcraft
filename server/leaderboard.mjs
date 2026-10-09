@@ -1,6 +1,6 @@
-// Dummy leaderboard that grows realistically: each bot earns about 0.06 $USDG per
+// Dummy leaderboard that grows realistically: each bot earns about 0.06 $SPACEX per
 // second with a small deterministic wobble, from a day-start epoch so numbers keep
-// rising. Values are USDG amounts with two decimals.
+// rising. Values are $SPACEX amounts with two decimals.
 const DAY=86400000;
 const BOTS=[
  {wallet:'0x7f2a9c1e5b8d4a630f9c2e7b1a5d8f3c60e4b9a2',character:'bitcoin',base:158,rate:.056},
@@ -17,11 +17,11 @@ const BOTS=[
 function hashSeed(value){let h=2166136261>>>0;for(let i=0;i<value.length;i++){h^=value.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
 export function leaderboard(now,user={}){
  const t=(now-Math.floor(now/DAY)*DAY)/1000;
- const players=BOTS.map((b,i)=>({wallet:b.wallet,character:b.character,usdg:Math.round((b.base+b.rate*t+(Math.sin(t/5+i*1.7)+1)*.06)*100)/100})).sort((a,b)=>b.usdg-a.usdg);
- const cents=Number.isInteger(user.usdg)&&user.usdg>0?user.usdg:0;
- const usdg=Math.round(cents)/100;
- // The first rank is a stable random value between 100 and 200, improving as USDG grows.
+ const players=BOTS.map((b,i)=>({wallet:b.wallet,character:b.character,spacex:Math.round((b.base+b.rate*t+(Math.sin(t/5+i*1.7)+1)*.06)*100)/100})).sort((a,b)=>b.spacex-a.spacex);
+ const cents=Number.isInteger(user.spacex)&&user.spacex>0?user.spacex:0;
+ const spacex=Math.round(cents)/100;
+ // The first rank is a stable random value between 100 and 200, improving as $SPACEX grows.
  const base=user.seed?100+(hashSeed(String(user.seed))%101):200;
  const rank=Math.max(100,base-Math.floor(cents/250));
- return {updated:now,players,user:{rank,wallet:user.wallet??null,character:user.character||'trencher',usdg}};
+ return {updated:now,players,user:{rank,wallet:user.wallet??null,character:user.character||'trencher',spacex}};
 }
